@@ -1,5 +1,5 @@
 package lejos;
-
+@author ViiRoX
 public class LejosApp {
 
     // Z-Druckkopf = Motorport A
