@@ -25,3 +25,8 @@ hs_err_pid*
 #IntelliJ
 .idea
 /bin/
+
+#eclipse
+.settings
+.classpath
+.project
