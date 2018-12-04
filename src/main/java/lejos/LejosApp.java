@@ -24,12 +24,9 @@ public class LejosApp {
 
 		// hier drucken
 		Motor.togglePen();
-		Funktion.dreieck(-100, -100, 200);
+		Linie line = new Linie(100, 50, true);
+		Funktion.driveLine(line);
 		Motor.togglePen();
-		//Motor.driveY(MathHelper.calcY(-200));
-		//Motor.togglePen();
-		//Funktion.dreieck(-50, -50, 10);
-		//Motor.togglePen();
 
 		Roboter.eject();
 	}
