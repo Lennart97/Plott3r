@@ -26,17 +26,19 @@ public class Funktion {
 		Motor.x.rotate(MathHelper.degreeX(-xCor));
 	}
 
-	public static void drawCircle(int radius, int x, int y) {
-		Motor.driveX(MathHelper.degreeX(x));
-		Motor.driveY(MathHelper.degreeY(y));
-		String kreis = "";
-		double winkel = 2 * Math.PI / 90;
-		for (int i = 1; i <= 90; i++) {
-			double xCor = (Math.cos(i * winkel) * radius) + x;
-			double yCor = (Math.sin(i * winkel) * radius) + y;
-			kreis += xCor + " " + yCor + " ";
-			stringToLines(kreis);
-		}
+    public static void drawCircle(int x, int y, int radius) {
+        Motor.driveX(MathHelper.degreeX(-x));
+        Motor.driveY(MathHelper.degreeY(-y));
+        String kreis = "";
+        double winkel = 2 * Math.PI / 90;
+        for (int i = 1; i <= 90; i++) {
+            double xCor = (Math.cos(i * winkel) * radius) + x;
+            double yCor = (Math.sin(i * winkel) * radius) + y;
+            kreis += xCor + " " + yCor + " ";
+            winkel += 2 * Math.PI / 90;
+        }
+        System.out.println(kreis);
+        driveLine(stringToLines(kreis));
 	}
 
 	public static void driveLine(Linie line) {

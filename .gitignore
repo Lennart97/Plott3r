@@ -37,3 +37,6 @@ bin/
 # Maven
 log/
 target/
+
+# SVG
+*.svg

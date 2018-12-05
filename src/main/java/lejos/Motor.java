@@ -10,10 +10,11 @@ public class Motor {
 	public static RegulatedMotor x = new EV3LargeRegulatedMotor(MotorPort.B);
 	public static RegulatedMotor y = new EV3LargeRegulatedMotor(MotorPort.C);
 
-	public static int maxRangeLeft = -1600;
+    // Max range in mm for x = 175 and y = 240
+    public static int maxRangeLeft = -1600;
 	public static int maxRangeRight = 0;
 	public static int maxRangeFront = 0;
-	public static int maxRangeBack = -2300;
+    public static int maxRangeBack = -2000;
 
 	// Gibt an ob der Stift oben ist
 	public static boolean penUp = true;
