@@ -30,8 +30,8 @@ public class Funktion {
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
-		int xMove = Math.abs(Motor.x.getTachoCount()) - line.x;
-		int yMove = Math.abs(Motor.y.getTachoCount()) - line.y;
+        int xMove = Math.abs(Motor.x.getTachoCount()) - MathHelper.calcX(line.x);
+        int yMove = Math.abs(Motor.y.getTachoCount()) - MathHelper.calcY(line.y);
 		int xDiff = Math.abs(xMove);
 		int yDiff = Math.abs(yMove);
 
@@ -40,13 +40,17 @@ public class Funktion {
 		else if (xDiff > yDiff)
 			Motor.setSpeed(Motor.y.getSpeed() * (yDiff / xDiff), Motor.y);
 
-		Motor.x.synchronizeWith(new RegulatedMotor[] { Motor.y });
-		Motor.x.startSynchronization();
+        Motor.y.synchronizeWith(new RegulatedMotor[]{Motor.x});
+        Motor.y.startSynchronization();
 
-		Motor.x.rotate(MathHelper.calcX(xMove));
-		Motor.y.rotate(MathHelper.calcY(yMove));
+        //System.out.println("XXX" + Motor.x.getSpeed());
+        System.out.println("YYY" + Motor.y.getSpeed());
 
-		Motor.x.endSynchronization();
+
+        Motor.x.rotate(xMove);
+        Motor.y.rotate(yMove);
+
+        Motor.y.endSynchronization();
 
 		Motor.x.waitComplete();
 		Motor.y.waitComplete();

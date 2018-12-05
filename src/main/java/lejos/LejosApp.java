@@ -22,7 +22,8 @@ public class LejosApp {
 		Roboter.init();
 		Roboter.changeStatus(Status.DRUCKEN);
 
-		// hier drucken
+
+        // hier drucken
 		Motor.togglePen();
 		Linie line = new Linie(100, 50, true);
 		Funktion.driveLine(line);

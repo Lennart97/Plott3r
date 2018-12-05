@@ -18,10 +18,8 @@ public class Roboter {
 			Sensor.sensorMode.fetchSample(Sensor.pushed, 0);
 		}
 		Motor.x.stop();
-		// Motor.maxRangeLeft = Motor.x.getTachoCount() - Motor.maxRangeLeft;
-		// Motor.maxRangeRight = Motor.x.getTachoCount() - Motor.maxRangeRight;
 
-		// F�hrt vorhandenes Blatt von Arbeitsfl�che
+		// Fuehrt vorhandenes Blatt von Arbeitsflaeche
 		while (Sensor.distance[0] != 0) {
 			Motor.y.forward();
 			Sensor.irOpen.fetchSample(Sensor.distance, 0);
