@@ -19,6 +19,11 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.github.bdeneuter/lejos-ev3-api -->

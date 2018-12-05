@@ -26,7 +26,12 @@ public class LejosApp {
 		Roboter.changeStatus(Status.DRUCKEN);
 
         // hier drucken
-        Funktion.driveLine(Funktion.stringToLines(""));
+		//Funktion.driveLine(Funktion.stringToLines("103 145 97 145"));
+		//Motor.driveX(MathHelper.degreeX(-100));
+		//Motor.driveY(MathHelper.degreeY(-145));
+		//Motor.togglePen();
+		//Funktion.drawSVG("cedric.svg");
+		//FileInputStream fr = new FileInputStream(getClass().getResourceAsStream("cedric.svg"));
 
 		Roboter.eject();
 	}

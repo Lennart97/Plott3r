@@ -2,6 +2,10 @@ package lejos;
 
 import lejos.robotics.RegulatedMotor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Funktion {
@@ -90,5 +94,64 @@ public class Funktion {
 		return lines.toArray(new Linie[lines.size()]);
 
 	}
+
+    public static void drawSVG(String name) {
+        Linie[] lines = null;
+
+        try {
+            FileReader fr = new FileReader(name);
+            BufferedReader br = new BufferedReader(fr);
+            String zeile = br.readLine();
+            zeile = br.readLine();
+
+            if (!(zeile.contains("width=\"175mm\"") && zeile.contains("height=\"275mm\""))) {
+                try {
+                    throw new Exception("Falsche SVG-Groesse");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            zeile = br.readLine();
+            while (zeile != null) {
+                //
+                // 1. rect muss ignoriert werden!!
+                //
+                if (zeile.contains("<rect")) {
+                    String[] xTeil = zeile.split("x=\"");
+                    String[] x = xTeil[1].split("\"");
+                    String[] yTeil = zeile.split("y=\"");
+                    String[] y = yTeil[1].split("\"");
+                    String[] widthTeil = zeile.split("width=\"");
+                    String[] width = widthTeil[1].split("\"");
+                    String[] heightTeil = zeile.split("height=\"");
+                    String[] height = heightTeil[1].split("\"");
+                    float xWert = Float.valueOf(x[0]) + Float.valueOf(width[0]);
+                    float yWert = Float.valueOf(y[0]) + Float.valueOf(height[0]);
+
+                    zeile = x[0] + " " + y[0] + " " + xWert + " " + y[0] + " " + xWert + " " + yWert + " " + x[0] + " "
+                            + yWert + " " + x[0] + " " + y[0];
+                    driveLine(stringToLines(zeile));
+                } else if (zeile.contains("<polyline")) {
+                    String[] punkte = zeile.split("points=\"");
+                    zeile = punkte[punkte.length - 1];
+                    String[] a = zeile.split("\"");
+                    zeile = a[0];
+                    driveLine(stringToLines(zeile));
+                } else if (zeile.contains("<line")) {
+
+                } else if (zeile.contains("<polygon")) {
+
+                }
+                zeile = br.readLine();
+
+            }
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
