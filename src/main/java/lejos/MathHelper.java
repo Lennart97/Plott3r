@@ -16,13 +16,13 @@ public class MathHelper {
 
     // Umrechnung von grad in mm fuer x-Achse
     public static int mmX(int degree) {
-        int mm = (int) (degree / 9.009);
+        int mm = Math.round(degree / 9.009f);
         return mm;
     }
 
     // Umrechnung von grad in mm fuer y-Achse
     public static int mmY(int degree) {
-        int mm = (int) (degree / 8.196);
+        int mm = Math.round(degree / 8.196f);
         return mm;
     }
 

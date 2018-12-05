@@ -32,19 +32,17 @@ public class Funktion {
 			Motor.togglePen();
         int xMove = MathHelper.mmX(Math.abs(Motor.x.getTachoCount())) - line.x;
         int yMove = MathHelper.mmX(Math.abs(Motor.y.getTachoCount())) - line.y;
-		int xDiff = Math.abs(xMove);
-		int yDiff = Math.abs(yMove);
+        float xDiff = Math.abs(xMove);
+        float yDiff = Math.abs(yMove);
 
 
-        double speed = 0;
+        float speed = 0;
         if (xDiff < yDiff) {
-            speed = (Motor.getSpeed(Motor.x) * (xDiff / yDiff));
-            Motor.setSpeed((int) speed, Motor.x);
+            speed = (Motor.getSpeed(Motor.x) / (yDiff / xDiff));
+            Motor.setSpeed(Math.round(speed), Motor.x);
         } else if (xDiff > yDiff) {
-            System.out.println("SPeed Y" + Motor.getSpeed(Motor.y));
-            double diff = yDiff / xDiff;
-            speed = (Motor.getSpeed(Motor.y) * diff);
-            Motor.setSpeed((int) speed, Motor.y);
+            speed = (Motor.getSpeed(Motor.y) / (xDiff / yDiff));
+            Motor.setSpeed(Math.round(speed), Motor.y);
         }
 
 
