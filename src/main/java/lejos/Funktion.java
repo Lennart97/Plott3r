@@ -2,6 +2,8 @@ package lejos;
 
 import lejos.robotics.RegulatedMotor;
 
+import java.util.ArrayList;
+
 public class Funktion {
 
 	// Eingabe der Koordinaten in mm
@@ -25,8 +27,8 @@ public class Funktion {
 	}
 
 	public static void driveLine(Linie line) {
-        Motor.setSpeed(10, Motor.x);
-        Motor.setSpeed(10, Motor.y);
+        Motor.setSpeed(20, Motor.x);
+        Motor.setSpeed(20, Motor.y);
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
@@ -64,5 +66,17 @@ public class Funktion {
 			driveLine(l);
 		}
 	}
+
+    public static Linie[] StringToLines(String text) {
+
+        ArrayList<Linie> lines = new ArrayList<Linie>();
+        String[] values = text.split(" ");
+        for (int i = 0; i < values.length - 1; i += 2) {
+            lines.add(new Linie(Math.round(Float.valueOf(values[i])), Math.round(Float.valueOf(values[i + 1])), true));
+        }
+        lines.get(0).draw = false;
+        return lines.toArray(new Linie[lines.size()]);
+
+    }
 
 }
