@@ -34,13 +34,13 @@ public class LejosApp {
         Funktion.driveLine(Funktion.StringToLines("153.921 24.3445 146.243 24.6093 145.714 32.0223 153.392 31.8557"));*/
 
         //Lennart
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
-        Funktion.driveLine(Funktion.StringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
+        Funktion.driveLine(Funktion.stringToLines(""));
 
 		Roboter.eject();
 	}
