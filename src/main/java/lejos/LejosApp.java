@@ -16,7 +16,7 @@ public class LejosApp {
 	// werden.
 	// Dabei wird immer ein positiver Wert als degree und die Richtung �bergeben.
 	// (left, right, forward, backward)
-	// z.B.: driveX(500, left) oder in mm mit: driveY(calcY(800), forward)
+    // z.B.: driveX(500, left) oder in mm mit: driveY(degreeY(800), forward)
 
 	public static void main(String[] args) {
 		Roboter.init();

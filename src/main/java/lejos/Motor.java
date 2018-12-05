@@ -18,12 +18,12 @@ public class Motor {
 	// Gibt an ob der Stift oben ist
 	public static boolean penUp = true;
 
-	// Setzt die Geschwindigkeit in mm pro Sekunde f�r die x und y Achse
+	// Setzt die Geschwindigkeit in mm pro Sekunde fuer die x und y Achse
 	public static void setSpeed(int mmSec, RegulatedMotor motor) {
 		if (motor.equals(x)) {
-			x.setSpeed(MathHelper.calcX(mmSec));
+			x.setSpeed(MathHelper.degreeX(mmSec));
 		} else if (motor.equals(y)) {
-			y.setSpeed(MathHelper.calcY(mmSec));
+			y.setSpeed(MathHelper.degreeY(mmSec));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class Motor {
 
 	// Overload to set direction by String, rather than negation
 	public static void driveX(int degree, String direction) {
-		if (direction == "l") {
+		if (direction.equals("l")) {
 			degree = -degree;
 		}
 		if (degree + x.getTachoCount() >= maxRangeLeft && degree + x.getTachoCount() <= maxRangeRight) {
@@ -55,7 +55,7 @@ public class Motor {
 
 	// Overload to set direction by String, rather than negation
 	public static void driveY(int degree, String direction) {
-		if (direction == "f") {
+		if (direction.equals("f")) {
 			degree = -degree;
 		}
 		if (degree + y.getTachoCount() <= maxRangeFront && degree + y.getTachoCount() >= maxRangeBack) {
@@ -63,13 +63,10 @@ public class Motor {
 		}
 	}
 
-	// Vor dem Betrieb muss sich der Stift in der h�chsten Position befinden!
-	// Wechselt vom letzten Zustand (oben/unten) zum n�chsten
+	// Vor dem Betrieb muss sich der Stift in der hoechsten Position befinden!
+	// Wechselt vom letzten Zustand (oben/unten) zum naechsten
 	public static void togglePen() {
-		if (penUp == true)
-			penUp = false;
-		else
-			penUp = true;
+		penUp = penUp != true;
 		z.rotate(180);
 	}
 

@@ -9,19 +9,19 @@ public class Funktion {
 		Motor.setSpeed(mmSec, Motor.x);
 		Motor.setSpeed(mmSec, Motor.y);
 
-		Motor.driveY(MathHelper.calcY(yCor));
+        Motor.driveY(MathHelper.degreeY(yCor));
 
 		Motor.x.synchronizeWith(new RegulatedMotor[] { Motor.y });
 		Motor.x.startSynchronization();
 
-		Motor.x.rotate(MathHelper.calcX(xCor));
-		Motor.y.rotate(MathHelper.calcY(-yCor));
+        Motor.x.rotate(MathHelper.degreeX(xCor));
+        Motor.y.rotate(MathHelper.degreeY(-yCor));
 
 		Motor.x.endSynchronization();
 
 		Motor.x.waitComplete();
 		Motor.y.waitComplete();
-		Motor.x.rotate(MathHelper.calcX(-xCor));
+        Motor.x.rotate(MathHelper.degreeX(-xCor));
 	}
 
 	public static void driveLine(Linie line) {
@@ -30,8 +30,8 @@ public class Funktion {
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
-        int xMove = Math.abs(Motor.x.getTachoCount()) - MathHelper.calcX(line.x);
-        int yMove = Math.abs(Motor.y.getTachoCount()) - MathHelper.calcY(line.y);
+        int xMove = Math.abs(Motor.x.getTachoCount()) - MathHelper.degreeX(line.x);
+        int yMove = Math.abs(Motor.y.getTachoCount()) - MathHelper.degreeY(line.y);
 		int xDiff = Math.abs(xMove);
 		int yDiff = Math.abs(yMove);
 
@@ -42,9 +42,6 @@ public class Funktion {
 
         Motor.y.synchronizeWith(new RegulatedMotor[]{Motor.x});
         Motor.y.startSynchronization();
-
-        //System.out.println("XXX" + Motor.x.getSpeed());
-        System.out.println("YYY" + Motor.y.getSpeed());
 
 
         Motor.x.rotate(xMove);
