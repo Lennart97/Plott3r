@@ -25,27 +25,35 @@ public class Funktion {
 	}
 
 	public static void driveLine(Linie line) {
-		Motor.setSpeed(50, Motor.x);
-		Motor.setSpeed(50, Motor.y);
+        Motor.setSpeed(10, Motor.x);
+        Motor.setSpeed(10, Motor.y);
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
-        int xMove = Math.abs(Motor.x.getTachoCount()) - MathHelper.degreeX(line.x);
-        int yMove = Math.abs(Motor.y.getTachoCount()) - MathHelper.degreeY(line.y);
+        int xMove = MathHelper.mmX(Math.abs(Motor.x.getTachoCount())) - line.x;
+        int yMove = MathHelper.mmX(Math.abs(Motor.y.getTachoCount())) - line.y;
 		int xDiff = Math.abs(xMove);
 		int yDiff = Math.abs(yMove);
 
-		if (xDiff < yDiff)
-			Motor.setSpeed(Motor.x.getSpeed() * (xDiff / yDiff), Motor.x);
-		else if (xDiff > yDiff)
-			Motor.setSpeed(Motor.y.getSpeed() * (yDiff / xDiff), Motor.y);
+
+        double speed = 0;
+        if (xDiff < yDiff) {
+            speed = (Motor.getSpeed(Motor.x) * (xDiff / yDiff));
+            Motor.setSpeed((int) speed, Motor.x);
+        } else if (xDiff > yDiff) {
+            System.out.println("SPeed Y" + Motor.getSpeed(Motor.y));
+            double diff = yDiff / xDiff;
+            speed = (Motor.getSpeed(Motor.y) * diff);
+            Motor.setSpeed((int) speed, Motor.y);
+        }
+
 
         Motor.y.synchronizeWith(new RegulatedMotor[]{Motor.x});
         Motor.y.startSynchronization();
 
 
-        Motor.x.rotate(xMove);
-        Motor.y.rotate(yMove);
+        Motor.x.rotate(MathHelper.degreeX(xMove));
+        Motor.y.rotate(MathHelper.degreeY(yMove));
 
         Motor.y.endSynchronization();
 

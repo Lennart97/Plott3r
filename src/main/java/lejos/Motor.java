@@ -27,6 +27,17 @@ public class Motor {
 		}
 	}
 
+    // gibt Geschwindigkeit in mmSec zurück
+    public static int getSpeed(RegulatedMotor motor) {
+        int speed = 0;
+        if (motor.equals(x)) {
+            speed = MathHelper.mmX(motor.getSpeed());
+        } else if (motor.equals(y)) {
+            speed = MathHelper.mmY(motor.getSpeed());
+        }
+        return speed;
+    }
+
 	// Verfahren der x-Achse, bei eingabe eines Wertes innerhalb des
 	// Arbeitsbereiches
 	public static void driveX(int degree) {
