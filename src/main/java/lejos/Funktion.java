@@ -46,30 +46,31 @@ public class Funktion {
 	}
 
 	public static void driveLine(Linie line) {
-		Motor.setSpeed(20, Motor.x);
-		Motor.setSpeed(20, Motor.y);
+        Motor.x.setSpeed(20);
+        Motor.y.setSpeed(20);
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
-		int xMove = MathHelper.mmX(Math.abs(Motor.x.getTachoCount())) - line.x;
-		int yMove = MathHelper.mmX(Math.abs(Motor.y.getTachoCount())) - line.y;
+
+        int xMove = Math.abs(Motor.x.getTachoCount()) - line.x;
+        int yMove = Math.abs(Motor.y.getTachoCount()) - line.y;
 		float xDiff = Math.abs(xMove);
 		float yDiff = Math.abs(yMove);
 
-		float speed = 0;
+        float speed;
 		if (xDiff < yDiff) {
-			speed = (Motor.getSpeed(Motor.x) / (yDiff / xDiff));
-			Motor.setSpeed(Math.round(speed), Motor.x);
+            speed = (Motor.x.getSpeed() / (yDiff / xDiff));
+            Motor.x.setSpeed(Math.round(speed));
 		} else if (xDiff > yDiff) {
-			speed = (Motor.getSpeed(Motor.y) / (xDiff / yDiff));
-			Motor.setSpeed(Math.round(speed), Motor.y);
+            speed = (Motor.y.getSpeed() / (xDiff / yDiff));
+            Motor.y.setSpeed(Math.round(speed));
 		}
 
 		Motor.y.synchronizeWith(new RegulatedMotor[] { Motor.x });
 		Motor.y.startSynchronization();
 
-		Motor.x.rotate(MathHelper.degreeX(xMove));
-		Motor.y.rotate(MathHelper.degreeY(yMove));
+        Motor.x.rotate(xMove);
+        Motor.y.rotate(yMove);
 
 		Motor.y.endSynchronization();
 
@@ -104,9 +105,9 @@ public class Funktion {
             String zeile = br.readLine();
             zeile = br.readLine();
 
-            if (!(zeile.contains("width=\"175mm\"") && zeile.contains("height=\"275mm\""))) {
+            if (!(zeile.contains("width=\"1600px\"") && zeile.contains("height=\"2300px\""))) {
                 try {
-                    throw new Exception("Falsche SVG-Groesse");
+                    throw new Exception("Falsche SVG-Groesse oder Einheit");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
