@@ -46,8 +46,8 @@ public class Funktion {
 	}
 
 	public static void driveLine(Linie line) {
-        Motor.x.setSpeed(20);
-        Motor.y.setSpeed(20);
+        Motor.x.setSpeed(200);
+        Motor.y.setSpeed(200);
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
@@ -85,7 +85,6 @@ public class Funktion {
 	}
 
 	public static Linie[] stringToLines(String text) {
-
 		ArrayList<Linie> lines = new ArrayList<Linie>();
 		String[] values = text.split(" ");
 		for (int i = 0; i < values.length - 1; i += 2) {
@@ -93,7 +92,6 @@ public class Funktion {
 		}
 		lines.get(0).draw = false;
 		return lines.toArray(new Linie[lines.size()]);
-
 	}
 
     public static void drawSVG(String name) {
@@ -153,6 +151,21 @@ public class Funktion {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void signature() {
+        // L
+        Funktion.driveLine(Funktion.stringToLines("70.0 0.0 0.0 0.0 0.0 40.0 "));
+
+        // H
+        Funktion.driveLine(Funktion.stringToLines("70 60 0 60"));
+        Funktion.driveLine(Funktion.stringToLines("70 100 0 100"));
+        Funktion.driveLine(Funktion.stringToLines("35 60 35 100"));
+
+        // C
+        Funktion.driveLine(Funktion.stringToLines("60 30 60 0 0 0 0 30"));
+        // M
+        Funktion.driveLine(Funktion.stringToLines("0 50 60 70 30 80 60 90 0 110"));
     }
 
 }

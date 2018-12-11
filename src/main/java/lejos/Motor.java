@@ -14,7 +14,7 @@ public class Motor {
     public static int maxRangeLeft = -1600;
 	public static int maxRangeRight = 0;
 	public static int maxRangeFront = 0;
-    public static int maxRangeBack = -2000;
+	public static int maxRangeBack = -2300;
 
 	// Gibt an ob der Stift oben ist
 	public static boolean penUp = true;

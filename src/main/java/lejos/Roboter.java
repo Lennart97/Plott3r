@@ -60,9 +60,4 @@ public class Roboter {
 		LCD.drawString(status.toString(), 1, 1);
 	}
 
-	// Koordinatensystem zur Orientierung fuer den Druckkopf
-	public static void koordinaten() {
-		array = new int[Motor.maxRangeLeft][Motor.maxRangeBack];
-
-	}
 }
