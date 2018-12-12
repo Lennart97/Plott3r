@@ -2,10 +2,6 @@ package lejos;
 
 import lejos.robotics.RegulatedMotor;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Funktion {
@@ -24,8 +20,8 @@ public class Funktion {
 		System.out.println(kreis);
 		driveLine(stringToLines(kreis));
 	}
-	
-	//Fährt eine Linie anhand der Koordination in Grad ab
+
+    //FÃ¤hrt eine Linie anhand der Koordination in Grad ab
 	public static void driveLine(Linie line) {
 		Motor.x.setSpeed(200);
 		Motor.y.setSpeed(200);
@@ -59,15 +55,15 @@ public class Funktion {
 		Motor.y.waitComplete();
 	}
 
-	// Fährt mehrere Linien anhand der Koordinaten in Grad ab
+    // FÃ¤hrt mehrere Linien anhand der Koordinaten in Grad ab
 	public static void driveLine(Linie[] line) {
 		for (Linie l : line) {
 			driveLine(l);
 		}
 	}
 
-	// Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen Text
-	// Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten Koordinaten bestehen
+    // Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Ãœbergebenen Text
+    // Der Ã¼bergebene Text muss nur aus mit Leerzeichen voneinander getrennten Koordinaten bestehen
 	public static Linie[] stringToLines(String text) {
 		ArrayList<Linie> lines = new ArrayList<Linie>();
 		String[] values = text.split(" ");
@@ -79,7 +75,7 @@ public class Funktion {
 	}
 
 	// Nimmt eine SVG-Datei in Form eines String-Arrays entgegen und zeichnet dieses
-	// Ein Objekt der Klasse SVGReader liefert das geeignete Zeilenbasierte Format welches diese Methode benötigt
+    // Ein Objekt der Klasse SVGReader liefert das geeignete Zeilenbasierte Format welches diese Methode benÃ¶tigt
 	public static void drawSVG(String[] lines) {
 		for (String line : lines) {
 			if (line.contains("width") && line.contains("height") && !line.contains("<rect")) {

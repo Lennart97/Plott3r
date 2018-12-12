@@ -26,7 +26,8 @@ public class LejosApp {
 		Roboter.changeStatus(Status.DRUCKEN);
 
         // hier drucken
-		//Funktion.signature();
+		SVGReader test = new SVGReader("test.svg");
+		Funktion.drawSVG(test.getSVGText());
 
 		Roboter.eject();
 	}
