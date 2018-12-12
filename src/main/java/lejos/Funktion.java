@@ -100,13 +100,11 @@ public class Funktion {
 
 				String rectangle = x[0] + " " + y[0] + " " + xWert + " " + y[0] + " " + xWert + " " + yWert + " " + x[0]
 						+ " " + yWert + " " + x[0] + " " + y[0];
-				System.out.println("rectangle schmeeeeckt");
 				driveLine(stringToLines(rectangle));
 			} else if (line.contains("<polyline")) {
 				String[] punkte = line.split("points=\"");
 				line = punkte[punkte.length - 1];
 				String[] a = line.split("\"");
-				System.out.println("polyline schmeeeeckt");
 				driveLine(stringToLines(a[0]));
 			} else if (line.contains("<line")) {
 				String[] punkt = line.split("x1=\"");
@@ -116,7 +114,6 @@ public class Funktion {
 				String[] y2 = x2[x2.length - 1].split("\"");
 
 				String linie = x1[0] + " " + y1[0] + " " + x2[0] + " " + y2[0];
-				System.out.println("line schmeeeeckt");
 				driveLine(stringToLines(linie));
 
 			} else if (line.contains("<polygon")) {
@@ -124,7 +121,6 @@ public class Funktion {
 				String[] nurPunkte = punkte[punkte.length - 1].split("\"");
 				String[] coordinates = nurPunkte[0].split(" ");
 				String polygon = nurPunkte[0] + " " + coordinates[0] + " " + coordinates[1];
-				System.out.println("polygon schmeeeeckt");
 				driveLine(stringToLines(polygon));
 			}
 		}
