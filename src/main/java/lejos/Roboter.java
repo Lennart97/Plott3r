@@ -19,7 +19,7 @@ public class Roboter {
 		}
 		Motor.x.stop();
 
-		// Fuehrt vorhandenes Blatt von Arbeitsflaeche
+		// Führt vorhandenes Blatt von Arbeitsfläche
 		while (Sensor.distance[0] != 0) {
 			Motor.y.forward();
 			Sensor.irOpen.fetchSample(Sensor.distance, 0);

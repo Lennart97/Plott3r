@@ -10,16 +10,15 @@ public class Motor {
 	public static RegulatedMotor x = new EV3LargeRegulatedMotor(MotorPort.B);
 	public static RegulatedMotor y = new EV3LargeRegulatedMotor(MotorPort.C);
 
-    // Max range in mm for x = 175 and y = 240
     public static int maxRangeLeft = -1600;
 	public static int maxRangeRight = 0;
 	public static int maxRangeFront = 0;
-	public static int maxRangeBack = -2300;
+	public static int maxRangeBack = -2000;
 
 	// Gibt an ob der Stift oben ist
 	public static boolean penUp = true;
 
-	// Setzt die Geschwindigkeit in mm pro Sekunde fuer die x und y Achse
+	// Setzt die Geschwindigkeit in mm pro Sekunde für die x und y Achse
 	public static void setSpeed(int mmSec, RegulatedMotor motor) {
 		if (motor.equals(x)) {
 			x.setSpeed(MathHelper.degreeX(mmSec));

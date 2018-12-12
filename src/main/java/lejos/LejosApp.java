@@ -13,12 +13,8 @@ public class LejosApp {
 	x negativ = Links <-
 	y positiv = Hinten /\
 	y negativ = Vorne \/
-	Die Richtung der Achsen kann den drive Methoden auch als String mitgegeben
-	werden.
-	Dabei wird immer ein positiver Wert als degree und die Richtung uebergeben.
-	(left, right, forward, backward)
-    z.B.: driveX(500, left) oder in mm mit: driveY(degreeY(800), forward)
-    Max range in mm for x = 175 and y = 240
+
+    Max range in degree for x = 1600 and y = 2000
     */
 
 	public static void main(String[] args) {
@@ -28,6 +24,9 @@ public class LejosApp {
         // hier drucken
 		SVGReader test = new SVGReader("test.svg");
 		Funktion.drawSVG(test.getSVGText());
+
+        SVGReader svg = new SVGReader("drawsvg.svg");
+        Funktion.drawSVG(svg.getSVGText());
 
 		Roboter.eject();
 	}

@@ -13,9 +13,9 @@ public class SVGReader {
 	public SVGReader(String dateiname) {
 		this.dateiname = dateiname;
 	}
-	
-	// Gibt den Text der SVG-Datei in einem String-Array zur�ck.
-	// SVG-Dateien m�ssen vorher mit Programmen wie z.B. Visual Code formatiert werden!
+
+	// Gibt den Text der SVG-Datei in einem String-Array zurück.
+	// SVG-Dateien müssen vorher mit Programmen wie z.B. Visual Code formatiert werden!
 	public String[] getSVGText() {
 		ArrayList<String> lines = new ArrayList<String>();
 		String line = null;
