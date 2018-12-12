@@ -1,13 +1,10 @@
 package lejos;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class SVGReader {
 	public String dateiname;
@@ -19,28 +16,16 @@ public class SVGReader {
 		bufferedReader = new BufferedReader(inputReader);
 	}
 
-	public String getSVGText() {
-		String text = "";
+	public String[] getSVGText() {
+		ArrayList<String> lines = new ArrayList<String>();
 		String line = null;
 		try {
 			while ((line = bufferedReader.readLine()) != null) {
-				text += line;
+				lines.add(line + "\n");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		PrintWriter pWriter = null;
-		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("svginhalt.txt")));
-			pWriter.println(text);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			if (pWriter != null) {
-				pWriter.flush();
-				pWriter.close();
-			}
-		}
-		return text;
+		return lines.toArray(new String[lines.size()]);
 	}
 }

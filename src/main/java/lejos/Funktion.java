@@ -30,47 +30,47 @@ public class Funktion {
 		Motor.x.rotate(MathHelper.degreeX(-xCor));
 	}
 
-    public static void drawCircle(int x, int y, int radius) {
-        Motor.driveX(MathHelper.degreeX(-x));
-        Motor.driveY(MathHelper.degreeY(-y));
-        String kreis = "";
-        double winkel = 2 * Math.PI / 90;
-        for (int i = 1; i <= 90; i++) {
-            double xCor = (Math.cos(i * winkel) * radius) + x;
-            double yCor = (Math.sin(i * winkel) * radius) + y;
-            kreis += xCor + " " + yCor + " ";
-            winkel += 2 * Math.PI / 90;
-        }
-        System.out.println(kreis);
-        driveLine(stringToLines(kreis));
+	public static void drawCircle(int x, int y, int radius) {
+		Motor.driveX(MathHelper.degreeX(-x));
+		Motor.driveY(MathHelper.degreeY(-y));
+		String kreis = "";
+		double winkel = 2 * Math.PI / 90;
+		for (int i = 1; i <= 90; i++) {
+			double xCor = (Math.cos(i * winkel) * radius) + x;
+			double yCor = (Math.sin(i * winkel) * radius) + y;
+			kreis += xCor + " " + yCor + " ";
+			winkel += 2 * Math.PI / 90;
+		}
+		System.out.println(kreis);
+		driveLine(stringToLines(kreis));
 	}
 
 	public static void driveLine(Linie line) {
-        Motor.x.setSpeed(200);
-        Motor.y.setSpeed(200);
+		Motor.x.setSpeed(200);
+		Motor.y.setSpeed(200);
 
 		if (Motor.penUp == line.draw)
 			Motor.togglePen();
 
-        int xMove = Math.abs(Motor.x.getTachoCount()) - line.x;
-        int yMove = Math.abs(Motor.y.getTachoCount()) - line.y;
+		int xMove = Math.abs(Motor.x.getTachoCount()) - line.x;
+		int yMove = Math.abs(Motor.y.getTachoCount()) - line.y;
 		float xDiff = Math.abs(xMove);
 		float yDiff = Math.abs(yMove);
 
-        float speed;
+		float speed;
 		if (xDiff < yDiff) {
-            speed = (Motor.x.getSpeed() / (yDiff / xDiff));
-            Motor.x.setSpeed(Math.round(speed));
+			speed = (Motor.x.getSpeed() / (yDiff / xDiff));
+			Motor.x.setSpeed(Math.round(speed));
 		} else if (xDiff > yDiff) {
-            speed = (Motor.y.getSpeed() / (xDiff / yDiff));
-            Motor.y.setSpeed(Math.round(speed));
+			speed = (Motor.y.getSpeed() / (xDiff / yDiff));
+			Motor.y.setSpeed(Math.round(speed));
 		}
 
 		Motor.y.synchronizeWith(new RegulatedMotor[] { Motor.x });
 		Motor.y.startSynchronization();
 
-        Motor.x.rotate(xMove);
-        Motor.y.rotate(yMove);
+		Motor.x.rotate(xMove);
+		Motor.y.rotate(yMove);
 
 		Motor.y.endSynchronization();
 
@@ -94,78 +94,60 @@ public class Funktion {
 		return lines.toArray(new Linie[lines.size()]);
 	}
 
-    public static void drawSVG(String name) {
-        Linie[] lines = null;
+	public static void drawSVG(String[] lines) {
+		for (String line : lines) {
+			if (line.contains("width") && line.contains("height") && !line.contains("<rect")) {
+				if (!(line.contains("width=\"1600px\"") && line.contains("height=\"2300px\""))) {
+					try {
+						throw new Exception("Falsche SVG-Groesse oder Einheit");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			} else if (line.contains("<rect") && !line.contains("<rect id=\"svgEditorBackground\"")) {
+				String[] xTeil = line.split("x=\"");
+				String[] x = xTeil[1].split("\"");
+				String[] yTeil = line.split("y=\"");
+				String[] y = yTeil[1].split("\"");
+				String[] widthTeil = line.split("width=\"");
+				String[] width = widthTeil[1].split("\"");
+				String[] heightTeil = line.split("height=\"");
+				String[] height = heightTeil[1].split("\"");
+				float xWert = Float.valueOf(x[0]) + Float.valueOf(width[0]);
+				float yWert = Float.valueOf(y[0]) + Float.valueOf(height[0]);
 
-        try {
-            FileReader fr = new FileReader(name);
-            BufferedReader br = new BufferedReader(fr);
-            String zeile = br.readLine();
-            zeile = br.readLine();
+				String rectangle = x[0] + " " + y[0] + " " + xWert + " " + y[0] + " " + xWert + " " + yWert + " " + x[0]
+						+ " " + yWert + " " + x[0] + " " + y[0];
+				System.out.println("rectangle schmeeeeckt");
+				driveLine(stringToLines(rectangle));
+			} else if (line.contains("<polyline")) {
+				String[] punkte = line.split("points=\"");
+				line = punkte[punkte.length - 1];
+				String[] a = line.split("\"");
+				System.out.println("polyline schmeeeeckt");
+				driveLine(stringToLines(a[0]));
+			} else if (line.contains("<line")) {
+				System.out.println("line schmeeeeckt");
 
-            if (!(zeile.contains("width=\"1600px\"") && zeile.contains("height=\"2300px\""))) {
-                try {
-                    throw new Exception("Falsche SVG-Groesse oder Einheit");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            zeile = br.readLine();
-            while (zeile != null) {
-                //
-                // 1. rect muss ignoriert werden!!
-                //
-                if (zeile.contains("<rect")) {
-                    String[] xTeil = zeile.split("x=\"");
-                    String[] x = xTeil[1].split("\"");
-                    String[] yTeil = zeile.split("y=\"");
-                    String[] y = yTeil[1].split("\"");
-                    String[] widthTeil = zeile.split("width=\"");
-                    String[] width = widthTeil[1].split("\"");
-                    String[] heightTeil = zeile.split("height=\"");
-                    String[] height = heightTeil[1].split("\"");
-                    float xWert = Float.valueOf(x[0]) + Float.valueOf(width[0]);
-                    float yWert = Float.valueOf(y[0]) + Float.valueOf(height[0]);
+			} else if (line.contains("<polygon")) {
+				System.out.println("line schmeeeeckt");
+			}
+		}
+	}
 
-                    zeile = x[0] + " " + y[0] + " " + xWert + " " + y[0] + " " + xWert + " " + yWert + " " + x[0] + " "
-                            + yWert + " " + x[0] + " " + y[0];
-                    driveLine(stringToLines(zeile));
-                } else if (zeile.contains("<polyline")) {
-                    String[] punkte = zeile.split("points=\"");
-                    zeile = punkte[punkte.length - 1];
-                    String[] a = zeile.split("\"");
-                    zeile = a[0];
-                    driveLine(stringToLines(zeile));
-                } else if (zeile.contains("<line")) {
+	public static void signature() {
+		// L
+		Funktion.driveLine(Funktion.stringToLines("70.0 0.0 0.0 0.0 0.0 40.0 "));
 
-                } else if (zeile.contains("<polygon")) {
+		// H
+		Funktion.driveLine(Funktion.stringToLines("70 60 0 60"));
+		Funktion.driveLine(Funktion.stringToLines("70 100 0 100"));
+		Funktion.driveLine(Funktion.stringToLines("35 60 35 100"));
 
-                }
-                zeile = br.readLine();
-
-            }
-            br.close();
-            fr.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void signature() {
-        // L
-        Funktion.driveLine(Funktion.stringToLines("70.0 0.0 0.0 0.0 0.0 40.0 "));
-
-        // H
-        Funktion.driveLine(Funktion.stringToLines("70 60 0 60"));
-        Funktion.driveLine(Funktion.stringToLines("70 100 0 100"));
-        Funktion.driveLine(Funktion.stringToLines("35 60 35 100"));
-
-        // C
-        Funktion.driveLine(Funktion.stringToLines("60 30 60 0 0 0 0 30"));
-        // M
-        Funktion.driveLine(Funktion.stringToLines("0 50 60 70 30 80 60 90 0 110"));
-    }
+		// C
+		Funktion.driveLine(Funktion.stringToLines("60 30 60 0 0 0 0 30"));
+		// M
+		Funktion.driveLine(Funktion.stringToLines("0 50 60 70 30 80 60 90 0 110"));
+	}
 
 }
