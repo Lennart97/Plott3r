@@ -7,22 +7,28 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class SVGReader {
+	// Ist im Format 'name.svg' anzugeben
 	public String dateiname;
-	public BufferedReader bufferedReader;
 
 	public SVGReader(String dateiname) {
-		InputStream in = getClass().getResourceAsStream("/" + dateiname);
-		InputStreamReader inputReader = new InputStreamReader(in);
-		bufferedReader = new BufferedReader(inputReader);
+		this.dateiname = dateiname;
 	}
-
+	
+	// Gibt den Text der SVG-Datei in einem String-Array zurück.
+	// SVG-Dateien müssen vorher mit Programmen wie z.B. Visual Code formatiert werden!
 	public String[] getSVGText() {
 		ArrayList<String> lines = new ArrayList<String>();
 		String line = null;
 		try {
+			InputStream in = getClass().getResourceAsStream("/" + dateiname);
+			InputStreamReader inputReader = new InputStreamReader(in);
+			BufferedReader bufferedReader = new BufferedReader(inputReader);
 			while ((line = bufferedReader.readLine()) != null) {
 				lines.add(line + "\n");
 			}
+			bufferedReader.close();
+			inputReader.close();
+			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

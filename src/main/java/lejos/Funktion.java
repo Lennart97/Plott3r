@@ -10,26 +10,6 @@ import java.util.ArrayList;
 
 public class Funktion {
 
-	// Eingabe der Koordinaten in mm
-	public static void dreieck(int xCor, int yCor, int mmSec) {
-		Motor.setSpeed(mmSec, Motor.x);
-		Motor.setSpeed(mmSec, Motor.y);
-
-		Motor.driveY(MathHelper.degreeY(yCor));
-
-		Motor.x.synchronizeWith(new RegulatedMotor[] { Motor.y });
-		Motor.x.startSynchronization();
-
-		Motor.x.rotate(MathHelper.degreeX(xCor));
-		Motor.y.rotate(MathHelper.degreeY(-yCor));
-
-		Motor.x.endSynchronization();
-
-		Motor.x.waitComplete();
-		Motor.y.waitComplete();
-		Motor.x.rotate(MathHelper.degreeX(-xCor));
-	}
-
 	public static void drawCircle(int x, int y, int radius) {
 		Motor.driveX(MathHelper.degreeX(-x));
 		Motor.driveY(MathHelper.degreeY(-y));
@@ -44,7 +24,8 @@ public class Funktion {
 		System.out.println(kreis);
 		driveLine(stringToLines(kreis));
 	}
-
+	
+	//Fährt eine Linie anhand der Koordination in Grad ab
 	public static void driveLine(Linie line) {
 		Motor.x.setSpeed(200);
 		Motor.y.setSpeed(200);
@@ -78,12 +59,15 @@ public class Funktion {
 		Motor.y.waitComplete();
 	}
 
+	// Fährt mehrere Linien anhand der Koordinaten in Grad ab
 	public static void driveLine(Linie[] line) {
 		for (Linie l : line) {
 			driveLine(l);
 		}
 	}
 
+	// Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen Text
+	// Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten Koordinaten bestehen
 	public static Linie[] stringToLines(String text) {
 		ArrayList<Linie> lines = new ArrayList<Linie>();
 		String[] values = text.split(" ");
@@ -94,6 +78,8 @@ public class Funktion {
 		return lines.toArray(new Linie[lines.size()]);
 	}
 
+	// Nimmt eine SVG-Datei in Form eines String-Arrays entgegen und zeichnet dieses
+	// Ein Objekt der Klasse SVGReader liefert das geeignete Zeilenbasierte Format welches diese Methode benötigt
 	public static void drawSVG(String[] lines) {
 		for (String line : lines) {
 			if (line.contains("width") && line.contains("height") && !line.contains("<rect")) {
@@ -138,7 +124,6 @@ public class Funktion {
 				driveLine(stringToLines(linie));
 
 			} else if (line.contains("<polygon")) {
-//				<polygon points="200 10 250 190 160 210" style="fill:lime;stroke:purple;stroke-width:1" />
 				String[] punkte = line.split("points=\"");
 				String[] nurPunkte = punkte[punkte.length - 1].split("\"");
 				String[] coordinates = nurPunkte[0].split(" ");
@@ -149,6 +134,7 @@ public class Funktion {
 		}
 	}
 
+	// Initialen LH CM
 	public static void signature() {
 		// L
 		Funktion.driveLine(Funktion.stringToLines("70.0 0.0 0.0 0.0 0.0 40.0 "));
