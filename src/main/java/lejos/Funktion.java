@@ -97,7 +97,7 @@ public class Funktion {
 	public static void drawSVG(String[] lines) {
 		for (String line : lines) {
 			if (line.contains("width") && line.contains("height") && !line.contains("<rect")) {
-				if (!(line.contains("width=\"1600px\"") && line.contains("height=\"2300px\""))) {
+				if (!(line.contains("width=\"1600px\"") && line.contains("height=\"2000px\""))) {
 					try {
 						throw new Exception("Falsche SVG-Groesse oder Einheit");
 					} catch (Exception e) {
@@ -127,10 +127,24 @@ public class Funktion {
 				System.out.println("polyline schmeeeeckt");
 				driveLine(stringToLines(a[0]));
 			} else if (line.contains("<line")) {
+				String[] punkt = line.split("x1=\"");
+				String[] x1 = punkt[punkt.length - 1].split("\" y1=\"");
+				String[] y1 = x1[x1.length - 1].split("\" x2=\"");
+				String[] x2 = y1[y1.length - 1].split("\" y2=\"");
+				String[] y2 = x2[x2.length - 1].split("\"");
+
+				String linie = x1[0] + " " + y1[0] + " " + x2[0] + " " + y2[0];
 				System.out.println("line schmeeeeckt");
+				driveLine(stringToLines(linie));
 
 			} else if (line.contains("<polygon")) {
-				System.out.println("line schmeeeeckt");
+//				<polygon points="200 10 250 190 160 210" style="fill:lime;stroke:purple;stroke-width:1" />
+				String[] punkte = line.split("points=\"");
+				String[] nurPunkte = punkte[punkte.length - 1].split("\"");
+				String[] coordinates = nurPunkte[0].split(" ");
+				String polygon = nurPunkte[0] + " " + coordinates[0] + " " + coordinates[1];
+				System.out.println("polygon schmeeeeckt");
+				driveLine(stringToLines(polygon));
 			}
 		}
 	}
