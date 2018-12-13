@@ -18,16 +18,19 @@ public class LejosApp {
     */
 
 	public static void main(String[] args) {
+		// Roboter sollte IMMER initialisiert werden
 		Roboter.init();
+		// Status auf dem Display ändern
 		Roboter.changeStatus(Status.DRUCKEN);
 
-        // hier drucken
+        // hier plotten
 		SVGReader test = new SVGReader("test.svg");
 		Funktion.drawSVG(test.getSVGText());
 
         SVGReader svg = new SVGReader("drawsvg.svg");
         Funktion.drawSVG(svg.getSVGText());
 
+        // Roboter sollte IMMER diese Methode als Letztes aufrufen
 		Roboter.eject();
 	}
 

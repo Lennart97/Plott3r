@@ -10,6 +10,7 @@ public class Motor {
 	public static RegulatedMotor x = new EV3LargeRegulatedMotor(MotorPort.B);
 	public static RegulatedMotor y = new EV3LargeRegulatedMotor(MotorPort.C);
 
+	// maximal zulässige Gradzahlen die die Motoren fahren dürfen um im gültigen Bereich zu bleiben
     public static int maxRangeLeft = -1600;
 	public static int maxRangeRight = 0;
 	public static int maxRangeFront = 0;

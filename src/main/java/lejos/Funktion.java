@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Funktion {
 
+	// nähert eine Kreisform an
 	public static void drawCircle(int x, int y, int radius) {
 		Motor.driveX(MathHelper.degreeX(-x));
 		Motor.driveY(MathHelper.degreeY(-y));
@@ -17,11 +18,10 @@ public class Funktion {
 			kreis += xCor + " " + yCor + " ";
 			winkel += 2 * Math.PI / 90;
 		}
-		System.out.println(kreis);
 		driveLine(stringToLines(kreis));
 	}
 
-    //Fährt eine Linie anhand der Koordination in Grad ab
+	// Fährt eine Linie anhand der Koordination in Grad ab
 	public static void driveLine(Linie line) {
 		Motor.x.setSpeed(200);
 		Motor.y.setSpeed(200);
@@ -55,15 +55,17 @@ public class Funktion {
 		Motor.y.waitComplete();
 	}
 
-    // Fährt mehrere Linien anhand der Koordinaten in Grad ab
+	// Fährt mehrere Linien anhand der Koordinaten in Grad ab
 	public static void driveLine(Linie[] line) {
 		for (Linie l : line) {
 			driveLine(l);
 		}
 	}
 
-    // Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen Text
-    // Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten Koordinaten bestehen
+	// Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen
+	// Text
+	// Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten
+	// Koordinaten bestehen
 	public static Linie[] stringToLines(String text) {
 		ArrayList<Linie> lines = new ArrayList<Linie>();
 		String[] values = text.split(" ");
@@ -75,10 +77,12 @@ public class Funktion {
 	}
 
 	// Nimmt eine SVG-Datei in Form eines String-Arrays entgegen und zeichnet dieses
-    // Ein Objekt der Klasse SVGReader liefert das geeignete Zeilenbasierte Format welches diese Methode benötigt
+	// Ein Objekt der Klasse SVGReader liefert das geeignete Zeilenbasierte Format welches diese Methode benötigt
+	// SVG's müssen im Format 1600px * 2000px erstellt werden
 	public static void drawSVG(String[] lines) {
 		for (String line : lines) {
 			if (line.contains("width") && line.contains("height") && !line.contains("<rect")) {
+				// Prüfen ob die Maße des SVG stimmen
 				if (!(line.contains("width=\"1600px\"") && line.contains("height=\"2000px\""))) {
 					try {
 						throw new Exception("Falsche SVG-Groesse oder Einheit");
@@ -87,6 +91,7 @@ public class Funktion {
 					}
 				}
 			} else if (line.contains("<rect") && !line.contains("<rect id=\"svgEditorBackground\"")) {
+				// Wenn ein Rechteck gezeichnet werden soll
 				String[] xTeil = line.split("x=\"");
 				String[] x = xTeil[1].split("\"");
 				String[] yTeil = line.split("y=\"");
@@ -101,12 +106,13 @@ public class Funktion {
 				String rectangle = x[0] + " " + y[0] + " " + xWert + " " + y[0] + " " + xWert + " " + yWert + " " + x[0]
 						+ " " + yWert + " " + x[0] + " " + y[0];
 				driveLine(stringToLines(rectangle));
-			} else if (line.contains("<polyline")) {
+			} else if (line.contains("<polyline")) { // Wenn eine Polyline gezeichnet werden soll
 				String[] punkte = line.split("points=\"");
 				line = punkte[punkte.length - 1];
 				String[] a = line.split("\"");
 				driveLine(stringToLines(a[0]));
 			} else if (line.contains("<line")) {
+				// Wenn eine Linie gezeichnet werden soll
 				String[] punkt = line.split("x1=\"");
 				String[] x1 = punkt[punkt.length - 1].split("\" y1=\"");
 				String[] y1 = x1[x1.length - 1].split("\" x2=\"");
@@ -115,8 +121,8 @@ public class Funktion {
 
 				String linie = x1[0] + " " + y1[0] + " " + x2[0] + " " + y2[0];
 				driveLine(stringToLines(linie));
-
 			} else if (line.contains("<polygon")) {
+				// Wenn ein Polygon gezeichnet werden soll
 				String[] punkte = line.split("points=\"");
 				String[] nurPunkte = punkte[punkte.length - 1].split("\"");
 				String[] coordinates = nurPunkte[0].split(" ");
