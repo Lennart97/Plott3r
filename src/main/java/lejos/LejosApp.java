@@ -24,10 +24,7 @@ public class LejosApp {
 		Roboter.changeStatus(Status.DRUCKEN);
 
         // hier plotten
-		SVGReader test = new SVGReader("test.svg");
-		Funktion.drawSVG(test.getSVGText());
-
-        SVGReader svg = new SVGReader("drawsvg.svg");
+        SVGReader svg = new SVGReader("tree.svg");
         Funktion.drawSVG(svg.getSVGText());
 
         // Roboter sollte IMMER diese Methode als Letztes aufrufen

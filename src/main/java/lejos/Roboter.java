@@ -1,5 +1,6 @@
 package lejos;
 
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 
 public class Roboter {
@@ -36,11 +37,13 @@ public class Roboter {
 		Motor.y.resetTachoCount();
 		Motor.x.resetTachoCount();
 		changeStatus(Status.BETRIEBSBEREIT);
+		Sound.beepSequenceUp();
 	}
 
 	// Das Blatt wird ausgeworfen und der Druckkopf auf die Startposition gefahren
 	public static void eject() {
 		changeStatus(Status.ENDE);
+		Sound.beepSequence();
 		if (Motor.penUp == false)
 			Motor.togglePen();
 		Motor.x.setSpeed(200);
