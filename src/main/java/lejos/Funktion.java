@@ -135,17 +135,17 @@ public class Funktion {
 	// Initialen LH CM
 	public static void signature() {
 		// L
-		Funktion.driveLine(Funktion.stringToLines("70.0 0.0 0.0 0.0 0.0 40.0 "));
+        Funktion.driveLine(Funktion.stringToLines("924 1393 854 1393 854 1433"));
 
 		// H
-		Funktion.driveLine(Funktion.stringToLines("70 60 0 60"));
-		Funktion.driveLine(Funktion.stringToLines("70 100 0 100"));
-		Funktion.driveLine(Funktion.stringToLines("35 60 35 100"));
+        Funktion.driveLine(Funktion.stringToLines("924 1453 854 1453"));
+        Funktion.driveLine(Funktion.stringToLines("924 1493 854 1493"));
+        Funktion.driveLine(Funktion.stringToLines("889 1452 889 1493"));
 
 		// C
-		Funktion.driveLine(Funktion.stringToLines("60 30 60 0 0 0 0 30"));
+        Funktion.driveLine(Funktion.stringToLines("691 1423 691 1393 631 1393 631 1423"));
 		// M
-		Funktion.driveLine(Funktion.stringToLines("0 50 60 70 30 80 60 90 0 110"));
+        Funktion.driveLine(Funktion.stringToLines("631 1443 691 1463 661 1473 691 1493 631 1503"));
 	}
 
 }
