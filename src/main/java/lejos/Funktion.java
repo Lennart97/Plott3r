@@ -21,7 +21,7 @@ public class Funktion {
 		driveLine(stringToLines(kreis));
 	}
 
-	// Fährt eine Linie anhand der Koordination in Grad ab
+    // Fährt eine Linie anhand der Koordinaten in Grad ab
 	public static void driveLine(Linie line) {
 		Motor.x.setSpeed(200);
 		Motor.y.setSpeed(200);
@@ -62,10 +62,8 @@ public class Funktion {
 		}
 	}
 
-	// Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen
-	// Text
-	// Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten
-	// Koordinaten bestehen
+    // Erzeugt Linienobjekte mit den entsprechenden Koordinaten aus dem Übergebenen Text
+    // Der übergebene Text muss nur aus mit Leerzeichen voneinander getrennten Koordinaten bestehen
 	public static Linie[] stringToLines(String text) {
 		ArrayList<Linie> lines = new ArrayList<Linie>();
 		String[] values = text.split(" ");
@@ -132,11 +130,10 @@ public class Funktion {
 		}
 	}
 
-	// Initialen LH CM
+    // Initialen LH und CM
 	public static void signature() {
 		// L
         Funktion.driveLine(Funktion.stringToLines("924 1393 854 1393 854 1433"));
-
 		// H
         Funktion.driveLine(Funktion.stringToLines("924 1453 854 1453"));
         Funktion.driveLine(Funktion.stringToLines("924 1493 854 1493"));

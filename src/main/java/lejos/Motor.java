@@ -39,46 +39,24 @@ public class Motor {
         return speed;
     }
 
-	// Verfahren der x-Achse, bei eingabe eines Wertes innerhalb des
-	// Arbeitsbereiches
+	// Verfahren der x-Achse, bei eingabe eines Wertes innerhalb des Arbeitsbereiches
 	public static void driveX(int degree) {
 		if (degree + x.getTachoCount() >= maxRangeLeft && degree + x.getTachoCount() <= maxRangeRight) {
 			x.rotate(degree);
 		}
 	}
 
-	// Overload to set direction by String, rather than negation
-	public static void driveX(int degree, String direction) {
-		if (direction.equals("l")) {
-			degree = -degree;
-		}
-		if (degree + x.getTachoCount() >= maxRangeLeft && degree + x.getTachoCount() <= maxRangeRight) {
-			x.rotate(degree);
-		}
-	}
-
-	// Verfahren der y-Achse, bei eingabe eines Wertes innerhalb des
-	// Arbeitsbereiches
+	// Verfahren der y-Achse, bei eingabe eines Wertes innerhalb des Arbeitsbereiches
 	public static void driveY(int degree) {
 		if (degree + y.getTachoCount() <= maxRangeFront && degree + y.getTachoCount() >= maxRangeBack) {
 			y.rotate(degree);
 		}
 	}
 
-	// Overload to set direction by String, rather than negation
-	public static void driveY(int degree, String direction) {
-		if (direction.equals("f")) {
-			degree = -degree;
-		}
-		if (degree + y.getTachoCount() <= maxRangeFront && degree + y.getTachoCount() >= maxRangeBack) {
-			y.rotate(degree);
-		}
-	}
-
-	// Vor dem Betrieb muss sich der Stift in der hoechsten Position befinden!
-	// Wechselt vom letzten Zustand (oben/unten) zum naechsten
+	// Vor dem Betrieb muss sich der Stift in der höchsten Position befinden!
+	// Wechselt vom letzten Zustand (oben/unten) zum nächsten
 	public static void togglePen() {
-		penUp = penUp != true;
+		penUp = !penUp;
 		z.rotate(180);
 	}
 
